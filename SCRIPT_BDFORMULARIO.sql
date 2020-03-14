@@ -1,0 +1,65 @@
+CREATE TABLE DATOS (
+    ID INT(1) PRIMARY KEY NOT NULL,
+    NOMBRE VARCHAR(30) NOT NULL,
+    APELLIDO VARCHAR(30) NOT NULL,
+    CORREO VARCHAR(30) NOT NULL,
+    TELEFONO VARCHAR(9) NOT NULL,
+    DESCRIPCION VARCHAR (1000)NOT NULL,
+    ESTADO INT(1) NOT NULL
+)
+
+
+
+INSERT INTO BDFORMULARIO.DATOS VALUES (1,'ALBERTO','VELASQUEZ SANTOS','ALBERTO.VS@OUTLOOK.COM','985003139',
+'INFORMACION SOBRE SUS PRODUCTOS',1);
+
+SELECT * FROM BDFORMULARIO.DATOS;
+
+
+
+CREATE PROCEDURE MUESTRA()
+SELECT * FROM DATOS
+CALL MUESTRA;
+
+
+CREATE PROCEDURE ADICION(
+    IN pnombre VARCHAR(30),
+    IN papellido VARCHAR(30),
+    IN pcorreo VARCHAR(30),
+    IN ptelefono VARCHAR(9),
+    IN pdescripcion VARCHAR(1000))
+    BEGIN
+        DECLARE pid int;
+        DECLARE pestado int;
+        SET pid=(SELECT COUNT(*)+1 FROM BDFORMULARIO.DATOS);
+        SET pestado=1;
+        INSERT INTO BDFORMULARIO.DATOS(ID,NOMBRE,APELLIDO,CORREO,TELEFONO,DESCRIPCION,ESTADO) 
+        VALUE (pid,pnombre,papellido,pcorreo,ptelefono,pdescripcion,pestado);
+    END;
+
+CALL ADICION('CLAUDIO','HUAMAN','CLAUDIO@GMAIL.COM','999888777','INFORMACION DE PRECIOS');
+
+
+DELETE FROM BDFORMULARIO.DATOS WHERE ID=4;
+
+
+
+
+    /*
+    CREATE PROCEDURE ADICION(
+        IN pnombre VARCHAR(30),
+        IN papellido VARCHAR(30),
+        IN pcorreo VARCHAR(30),
+        IN ptelefono VARCHAR(9),
+        IN pdescripcion VARCHAR(1000))
+        BEGIN
+            DECLARE pid int;
+            --DECLARE cod CHAR(3); 
+            DECLARE pestado int;
+            SET pid=(SELECT COUNT(*)+1 FROM BDFORMULARIO.DATOS);
+            --SET cod= CONCAT(LEFT('E00',3-CHAR_LENGTH(pid)),pid);
+            SET pestado=1;
+            INSERT INTO BDFORMULARIO.DATOS(ID,NOMBRE,APELLIDO,CORREO,TELEFONO,DESCRIPCION,ESTADO) 
+            VALUE (pid,pnombre,papellido,pcorreo,ptelefono,pdescripcion,pestado);
+        END;
+    */
